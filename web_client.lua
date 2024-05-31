@@ -1,7 +1,7 @@
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
 local json = require("json")
-local tools = require("tools")
+local tools = require("awesome_clockify.tools")
 
 local api_url = "https://api.clockify.me/api/v1"
 local tracker_url = "https://clockify.me/tracker"

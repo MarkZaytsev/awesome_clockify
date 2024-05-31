@@ -1,7 +1,7 @@
-local WebClient = require("web_client")
-local tools = require("tools")
-local credentials = require("tests.credentials")
 local socket = require("socket")
+local WebClient = require("awesome_clockify.web_client")
+local tools = require("awesome_clockify.tools")
+local credentials = require("awesome_clockify.tests.credentials")
 
 local client = WebClient:new(credentials)
 
