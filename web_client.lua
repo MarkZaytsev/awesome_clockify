@@ -88,6 +88,12 @@ function WebClient:stop_timer()
 end
 
 function WebClient:toggle_timer()
+	local code, resp = self:stop_timer()
+	if code == 404 then
+		return self:resume_timer()
+	end	
+
+	return code, resp
 end
 
 return WebClient
