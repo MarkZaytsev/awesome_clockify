@@ -8,7 +8,7 @@ local client = WebClient:new(credentials)
 --201 - success
 local code, resume_resp = client:resume_timer()
 print("code: "..code)
-print("resp: "..tools.print(resume_resp))
+tools.print("resp: ", (resume_resp))
 
 socket.sleep(5)
 
@@ -16,7 +16,7 @@ socket.sleep(5)
 -- 404 - no active time entry
 local code, stop_resp = client:stop_timer()
 print("code: "..code)
-print("resp: "..tools.print(stop_resp))
+tools.print("resp: ", stop_resp)
 
 
 print("Test complete!")

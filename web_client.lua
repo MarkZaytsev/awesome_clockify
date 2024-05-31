@@ -1,10 +1,7 @@
-local https = require("ssl.https")
-local ltn12 = require("ltn12")
-local json = require("json")
 local tools = require("awesome_clockify.tools")
+local rest_client = require("awesome_clockify.rest_client")
 
 local api_url = "https://api.clockify.me/api/v1"
-local tracker_url = "https://clockify.me/tracker"
 
 local WebClient = {}
 
@@ -20,39 +17,8 @@ function WebClient:new(o)
 	return o
 end
 
-function WebClient:request(method, url, payload)
-	local response = {}
-	local request = {
-		url = url,
-		method = method,
-		sink = ltn12.sink.table(response),
-		source = payload and ltn12.source.string(json.encode(payload)),
-		headers = {
-			["content-type"] = 'application/json',
-		    ["x-api-key"] = self.api_key
-		}
-	}
-
-	print("Request:\n"..tools.print(request))
-
-	local _, code, body = https.request(request)
-	return code, json.decode(response[1])
-end
-
-function WebClient:get(url)
-	return self:request("GET", url)
-end
-
-function WebClient:post(url, payload)
-	return self:request("POST", url, payload)
-end
-
-function WebClient:patch(url, payload)
-	return self:request("PATCH", url, payload)
-end
-
 function WebClient:get_user()
-	local code, response = self:get(self.user_url)
+	local code, response = rest_client.get(self.user_url, self.api_key)
 
 	return {
 	    id = response["id"],
@@ -62,7 +28,7 @@ function WebClient:get_user()
 end
 
 function WebClient:get_last_time_entry()
-	local code, response = self:get(self.workspace_user_url.."/time-entries?page-size=1")
+	local code, response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.api_key)
 	return response[1]
 end
 
@@ -76,15 +42,15 @@ function WebClient:resume_timer()
         projectId = last_time_entry["projectId"]
     }
 
-	return self:post(self.workspace_url.."/time-entries", payload)
+	return rest_client.post(self.workspace_url.."/time-entries", self.api_key, payload)
 end
 
 function WebClient:stop_timer()
 	payload = {
-        ["end"] = tools.get_time_now_utc(),
+        ["end"] = tools.get_time_now_utc()
     }
 
-	return self:patch(self.workspace_user_url.."/time-entries", payload)
+	return rest_client.patch(self.workspace_user_url.."/time-entries", self.api_key, payload)
 end
 
 function WebClient:toggle_timer()

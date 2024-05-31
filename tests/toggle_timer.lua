@@ -6,6 +6,6 @@ local client = WebClient:new(credentials)
 
 local code, toggle_resp = client:toggle_timer()
 print("code: "..code)
-print("resp: "..tools.print(toggle_resp))
+tools.print("resp: ", toggle_resp)
 
 print("Test complete!")

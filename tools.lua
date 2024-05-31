@@ -1,18 +1,22 @@
 local tools = {}
 
-function tools.print(o, depth)
+function tools.as_string(obj, depth)
 	depth = depth or 1
 
-	if type(o) == 'table' then
+	if type(obj) == 'table' then
 	  local s = '{ \n'
-	  for k,v in pairs(o) do
+	  for k,v in pairs(obj) do
 	     if type(k) ~= 'number' then k = '"'..k..'"' end
-	     s = s .. string.rep("\t", depth) .. '['..k..'] = ' .. tools.print(v, depth + 1) .. ',\n'
+	     s = s .. string.rep("\t", depth) .. '['..k..'] = ' .. tools.as_string(v, depth + 1) .. ',\n'
 	  end
 	  return s .. string.rep("\t", depth - 1) .. '}'
 	else
-	  return tostring(o)
+	  return tostring(obj)
 	end
+end
+
+function tools.print(text, obj)
+	print(text..tools.as_string(obj))
 end
 
 -- https://www.lua.org/pil/22.1.html
