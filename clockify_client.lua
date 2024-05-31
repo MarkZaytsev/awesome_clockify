@@ -3,9 +3,9 @@ local rest_client = require("awesome_clockify.rest_client")
 
 local api_url = "https://api.clockify.me/api/v1"
 
-local WebClient = {}
+local ClockifyClient = {}
 
-function WebClient:new(o)
+function ClockifyClient:new(o)
 	o = o or {}
 	setmetatable(o, self)
 	self.__index = self
@@ -17,7 +17,7 @@ function WebClient:new(o)
 	return o
 end
 
-function WebClient:get_user()
+function ClockifyClient:get_user()
 	local code, response = rest_client.get(self.user_url, self.api_key)
 
 	return {
@@ -27,12 +27,12 @@ function WebClient:get_user()
 	}
 end
 
-function WebClient:get_last_time_entry()
+function ClockifyClient:get_last_time_entry()
 	local code, response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.api_key)
 	return response[1]
 end
 
-function WebClient:resume_timer()
+function ClockifyClient:resume_timer()
 	local last_time_entry = self:get_last_time_entry()
 
 	payload = {
@@ -45,7 +45,7 @@ function WebClient:resume_timer()
 	return rest_client.post(self.workspace_url.."/time-entries", self.api_key, payload)
 end
 
-function WebClient:stop_timer()
+function ClockifyClient:stop_timer()
 	payload = {
         ["end"] = tools.get_time_now_utc()
     }
@@ -53,7 +53,7 @@ function WebClient:stop_timer()
 	return rest_client.patch(self.workspace_user_url.."/time-entries", self.api_key, payload)
 end
 
-function WebClient:toggle_timer()
+function ClockifyClient:toggle_timer()
 	local code, resp = self:stop_timer()
 	if code == 404 then
 		return self:resume_timer()
@@ -62,4 +62,4 @@ function WebClient:toggle_timer()
 	return code, resp
 end
 
-return WebClient
+return ClockifyClient

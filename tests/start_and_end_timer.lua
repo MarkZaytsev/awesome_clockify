@@ -1,9 +1,9 @@
 local socket = require("socket")
-local WebClient = require("awesome_clockify.web_client")
+local ClockifyClient = require("awesome_clockify.clockify_clientH")
 local tools = require("awesome_clockify.tools")
 local credentials = require("awesome_clockify.tests.credentials")
 
-local client = WebClient:new(credentials)
+local client = ClockifyClient:new(credentials)
 
 --201 - success
 local code, resume_resp = client:resume_timer()
