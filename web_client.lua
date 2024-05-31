@@ -47,6 +47,10 @@ function WebClient:post(url, payload)
 	return self:request("POST", url, payload)
 end
 
+function WebClient:patch(url, payload)
+	return self:request("PATCH", url, payload)
+end
+
 function WebClient:get_user()
 	local code, response = self:get(self.user_url)
 
@@ -76,6 +80,11 @@ function WebClient:resume_timer()
 end
 
 function WebClient:stop_timer()
+	payload = {
+        ["end"] = tools.get_time_now_utc(),
+    }
+
+	return self:patch(self.workspace_user_url.."/time-entries", payload)
 end
 
 function WebClient:toggle_timer()
