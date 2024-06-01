@@ -1,25 +1,19 @@
 local socket = require("socket")
-local ClockifyClient = require("awesome_clockify.clockify_client")
-local tools = require("awesome_clockify.tools")
-local credentials = require("awesome_clockify.tests.credentials")
-local logger = require("awesome_clockify.logger")
+local TestSetup = require("awesome_clockify.tests.test_setup")
 
-logger.is_active = true
-
-local client = ClockifyClient:new(credentials)
+local setup = TestSetup:new()
 
 --201 - success
-local code, resume_resp = client:resume_timer()
-logger.log("code: "..code)
-tools.log_table("resp: ", resume_resp)
+local code, resume_resp = setup.client:resume_timer()
+setup.logger.log("code: "..code)
+setup.tools.log_table("resp: ", resume_resp)
 
 socket.sleep(5)
 
 -- 200 - success
 -- 404 - no active time entry
-local code, stop_resp = client:stop_timer()
-logger.log("code: "..code)
-tools.log_table("resp: ", stop_resp)
+local code, stop_resp = setup.client:stop_timer()
+setup.logger.log("code: "..code)
+setup.tools.log_table("resp: ", stop_resp)
 
-
-logger.log("Test complete!")
+setup:complete()

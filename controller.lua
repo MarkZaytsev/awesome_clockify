@@ -9,9 +9,12 @@ function Controller:new(o)
 
 	assert(o.clockify_client, "No clockify_client provided to Controller.")
 
-	--TODO on intitalize: check if timer is running or get total time
 	self.total_tracked_seconds_today = 0
 	return o
+end
+
+function Controller:initialize()
+	self:update_total_tracked_seconds_today()	
 end
 
 function Controller:get_text()

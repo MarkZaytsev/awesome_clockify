@@ -1,15 +1,12 @@
-local ClockifyClient = require("awesome_clockify.clockify_client")
-local tools = require("awesome_clockify.tools")
-local credentials = require("awesome_clockify.tests.credentials")
-local logger = require("awesome_clockify.logger")
+local TestSetup = require("awesome_clockify.tests.test_setup")
 
-logger.is_active = true
+local setup = TestSetup:new()
 
-local client = ClockifyClient:new(credentials)
-local today_start_time = tools.get_time_today_utc()
-local total_today_seconds = client:get_total_seconds(today_start_time)
+local today_start_time = setup.tools.get_time_today_utc()
+local total_today_seconds = setup.client:get_total_seconds(today_start_time)
 local total_today_time = os.date("!%X", total_today_seconds)
-logger.log("total_today_seconds: ", total_today_seconds)
-logger.log("total_today_time: ", total_today_time)
 
-logger.log("Test complete!")
+setup.logger.log("total_today_seconds: ", total_today_seconds)
+setup.logger.log("total_today_time: ", total_today_time)
+
+setup:complete()

@@ -1,12 +1,7 @@
-local ClockifyClient = require("awesome_clockify.clockify_client")
-local tools = require("awesome_clockify.tools")
-local credentials = require("awesome_clockify.tests.credentials")
-local logger = require("awesome_clockify.logger")
+local TestSetup = require("awesome_clockify.tests.test_setup")
 
-logger.is_active = true
+local setup = TestSetup:new()
+local user = setup.client:get_user()
+setup.tools.log_table("user: \n", user)
 
-local client = ClockifyClient:new(credentials)
-local user = client:get_user()
-tools.log_table("user: \n", user)
-
-logger.log("Test complete!")
+setup:complete()
