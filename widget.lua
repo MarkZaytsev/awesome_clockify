@@ -10,6 +10,8 @@ local function worker(user_args)
 	
 	assert(args.controller, "No controller provided to widget.")
 	
+	args.controller:initialize()
+
 	clockify_widget = wibox.widget {
 	        {
 	            id = 'timer',

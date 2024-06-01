@@ -14,19 +14,17 @@ function Controller:new(o)
 end
 
 function Controller:initialize()
-	self:update_total_tracked_seconds_today()	
+	self:update_total_tracked_seconds_today()
+	self.start_time = os.time() - self.clockify_client:get_active_time_seconds()
+	self.is_running = self.start_time ~= 0
 end
 
 function Controller:get_text()
-	if self:is_running() and self.show_active_time then
+	if self.is_running and self.is_active_time_display_required then
 		return self:get_active_time_text()
 	else
 		return self:get_today_tracked_time_text()
 	end
-end
-
-function Controller:is_running()
-	return self.start_time
 end
 
 function Controller:get_active_time_text()
@@ -34,7 +32,7 @@ function Controller:get_active_time_text()
 end
 
 function Controller:get_active_time_seconds()
-	if not self:is_running() then
+	if not self.is_running then
 		return 0
 	end
 	
@@ -48,10 +46,11 @@ end
 
 function Controller:toggle_timer()
 	self.start_time = os.time()
+	self.is_running = true
 
 	local result = self.clockify_client:toggle_timer()
 	if not result.is_running then
-	 	self.start_time = nil
+	 	self.is_running = false
 	 	self:update_total_tracked_seconds_today()
 	end
 end

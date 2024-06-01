@@ -1,5 +1,6 @@
 local tools = require("awesome_clockify.tools")
 local rest_client = require("awesome_clockify.rest_client")
+local logger = require("awesome_clockify.logger")
 
 local api_url = "https://api.clockify.me/api/v1"
 
@@ -77,17 +78,45 @@ function ClockifyClient:get_entries(start_time)
 	return entries
 end
 
+local function get_entry_duration(entry)
+	return entry["timeInterval"]["duration"]
+end
+
+local function get_entry_start_time(entry)
+	return entry["timeInterval"]["start"]
+end
+
 function ClockifyClient:get_total_seconds(start_time)
 	local entries = self:get_entries(start_time)
 	local total_sec = 0
 	for _,v in pairs(entries) do
-		local duration = v["timeInterval"]["duration"]
+		local duration = get_entry_duration(v)
 		if duration then
 			total_sec = total_sec + tools.get_duration_in_seconds(duration)
 		end
 	end
 	
 	return total_sec
+end
+
+function ClockifyClient:get_active_time_seconds()
+	local entry = self:get_last_time_entry()
+	
+	if not entry then
+		return 0
+	end
+
+	local duration = get_entry_duration(entry)
+	if duration then
+		return 0
+	end
+
+	local start_time = get_entry_start_time(entry)
+	if not start_time then
+		return 0
+	end
+
+	return tools.parse_clockify_time_to_seconds(start_time)
 end
 
 return ClockifyClient
