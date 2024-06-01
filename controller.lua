@@ -15,8 +15,9 @@ end
 
 function Controller:initialize()
 	self:update_total_tracked_seconds_today()
-	self.start_time = os.time() - self.clockify_client:get_active_time_seconds()
-	self.is_running = self.start_time ~= 0
+	local active_seconds = self.clockify_client:get_active_time_seconds()
+	self.start_time = os.time() - active_seconds
+	self.is_running = active_seconds ~= 0
 end
 
 function Controller:get_text()

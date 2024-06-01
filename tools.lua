@@ -34,14 +34,7 @@ end
 
 function tools.parse_clockify_time_to_seconds(text)
 	local _, _, year, month, day, hours, minutes, seconds = string.find(text, "(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)Z")
-	
-	logger.log("year: ", year)
-	logger.log("month: ", month)
-	logger.log("day: ", day)
-	logger.log("hours: ", hours)
-	logger.log("minutes: ", minutes)
-	logger.log("seconds: ", seconds)
-	
+		
 	local time_passed = os.time{ 
 		year = year,
 		month = month,
@@ -51,7 +44,9 @@ function tools.parse_clockify_time_to_seconds(text)
 		sec = seconds
 	}
 
+	logger.log("got clockify_time to parse: ", text)
 	tools.log_table("reverse date: ", os.date("%c", time_passed))
+
 	return os.time(os.date("!*t")) - time_passed
 end
 
