@@ -2,6 +2,7 @@ local https = require("ssl.https")
 local ltn12 = require("ltn12")
 local json = require("json")
 local tools = require("awesome_clockify.tools")
+local logger = require("awesome_clockify.logger")
 
 local client = {}
 
@@ -18,10 +19,19 @@ function client.request(method, url, api_key, payload)
 		}
 	}
 
-	-- tools.print("Requset:\n", request)
+	tools.log_table("Requset:\n", request)
 
 	local _, code, body = https.request(request)
-	return code, json.decode(response[1])
+	
+	-- Response string is choped by characters amount for some reason
+	local str_json = ""
+	for _, v in pairs(response) do
+		str_json = str_json .. v
+	end
+
+	logger.log("response:\n", str_json)
+
+	return code, json.decode(str_json)
 end
 
 function client.get(url, api_key)

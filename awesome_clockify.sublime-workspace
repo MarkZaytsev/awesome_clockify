@@ -1,0 +1,419 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lo",
+				"logger"
+			],
+			[
+				"st",
+				"str_json"
+			],
+			[
+				"fu",
+				"function\tfunction"
+			],
+			[
+				"tot",
+				"total_today_time"
+			],
+			[
+				"to",
+				"total_today_seconds"
+			],
+			[
+				"for",
+				"fori\tfor i,v in ipairs()"
+			],
+			[
+				"en",
+				"end_pos"
+			],
+			[
+				"get",
+				"get_entries"
+			],
+			[
+				"str",
+				"str_json"
+			],
+			[
+				"co",
+				"counter"
+			],
+			[
+				"re",
+				"response"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"clo",
+				"clockify_client"
+			],
+			[
+				"wor",
+				"workspace_id"
+			],
+			[
+				"api",
+				"api_key"
+			],
+			[
+				"workspace_u",
+				"workspace_url"
+			],
+			[
+				"use",
+				"user_url"
+			],
+			[
+				"works",
+				"workspace_user_url"
+			],
+			[
+				"w",
+				"workspace_url"
+			],
+			[
+				"d",
+				"day"
+			],
+			[
+				"la",
+				"last_time_entry"
+			],
+			[
+				"p",
+				"payload"
+			],
+			[
+				"u",
+				"url"
+			],
+			[
+				"us",
+				"user_id"
+			],
+			[
+				"sin",
+				"sink_table"
+			],
+			[
+				"de",
+				"depth"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"du",
+				"dump_table"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"wid",
+				"width"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/mnt/data/Projects/awesome_clockify"
+	],
+	"file_history":
+	[
+		"/mnt/data/Projects/awesome_clockify/logger.lua",
+		"/mnt/data/Projects/awesome_clockify/tools.lua",
+		"/mnt/data/Projects/awesome_clockify/controller.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/net-speed-widget/net-speed.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/cpu-widget/cpu-widget.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/pactl-widget/volume.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/ram-widget/ram-widget.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/volume-widget/volume.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/todo-widget/todo.lua",
+		"/mnt/data/Projects/ulauncher_clockify/main.py",
+		"/mnt/patriot/Shared/Rider regex for handlers and services",
+		"/mnt/data/Projects/awesome_clockify/tests/toggle_timer.lua",
+		"/mnt/data/Projects/awesome_clockify/tests/start_and_end_timer.lua",
+		"/mnt/data/Projects/awesome_clockify/tests/get_user.lua",
+		"/mnt/data/Projects/awesome_clockify/tests/get_last_time.lua",
+		"/mnt/data/Projects/awesome_clockify/tests/get_today_total_time.lua",
+		"/mnt/data/Projects/awesome_clockify/rest_client.lua",
+		"/mnt/data/Projects/awesome_clockify/clockify_client.lua",
+		"/mnt/data/Projects/awesome_clockify/widget.lua",
+		"/home/mark/.config/awesome/rc.lua",
+		"/mnt/patriot/Shared/Shortcuts.md",
+		"/mnt/patriot/Shared/rememeber.txt",
+		"/home/mark/.config/awesome/awesome-wm-widgets/pactl-widget/pactl.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/pactl-widget/utils.lua",
+		"/home/mark/.config/awesome/awesome_clockify/tests/get_user.lua",
+		"/home/mark/.config/awesome/awesome_clockify/tests/get_last_time.lua",
+		"/home/mark/.config/awesome/awesome_clockify/tests/start_and_end_timer.lua",
+		"/home/mark/.config/awesome/awesome_clockify/tests/toggle_timer.lua",
+		"/home/mark/.config/rofi/config.rasi",
+		"/home/mark/Desktop/keyboard/Shortcuts",
+		"/home/mark/.config/xkb/custom",
+		"/mnt/data/Projects/awesome_clockify/tests/credentials.lua",
+		"/mnt/data/Projects/awesome_clockify/tests/web_client.lua",
+		"/mnt/data/Projects/awesome_clockify/main.lua",
+		"/home/mark/.config/awesome/awesome-wm-widgets/todo-widget/README.md",
+		"/mnt/data/Projects/awesome_clockify.lua",
+		"/home/mark/.config/awesome/theme.lua",
+		"/home/mark/.config/picom/picom.conf",
+		"/home/mark/Downloads/Trivia/ExternalTestQuestions.csv",
+		"/mnt/patriot/Shared/Egg TODO",
+		"/home/mark/.config/unity3d/particula/GoDice™/Storage/FunnyBugsMemo.dat",
+		"/home/mark/Downloads/xremap-x11/config.yml",
+		"/home/mark/.local/bin/rofi-power-menu",
+		"/home/mark/.Xmodmap",
+		"/home/mark/.config/awesome/volume-adjust.lua",
+		"/home/mark/.config/unity3d/Editor.log",
+		"/home/mark/Downloads/srd_bugreport_2024-05-22T06_12_19.txt",
+		"/home/mark/.config/xkb/weird",
+		"/mnt/data/Projects/Unity/Particula/GoDice/Unity/Project/Assets/Resources/Localization.csv",
+		"/mnt/data/Projects/Unity/Particula/GoDice/Unity/Project/Assets/Content/Games/EggCatching/SetupFiles/RulesSetup.asset",
+		"/usr/share/rofi/themes/spotlight-dark.rasi",
+		"/home/mark/.config/systemd/user/xmodmap.service",
+		"/mnt/patriot/Shared/Eshkolot",
+		"/home/mark/Projects/Unity/Particula/GoDice/Unity/Project/Assets/Resources/Localization.csv",
+		"/home/mark/Projects/Takenoko/CrashLog",
+		"/home/mark/Desktop/keyboard/Памятка по перепайке и прошившке клавиатуры.txt",
+		"/home/mark/Downloads/order",
+		"/home/mark/Downloads/ECS2.torrent",
+		"/home/mark/dwhelper/4_Notes",
+		"/home/mark/dwhelper/5_Notes",
+		"/home/mark/dwhelper/12_Notes",
+		"/home/mark/dwhelper/3_Notes",
+		"/home/mark/dwhelper/6_Notes",
+		"/home/mark/dwhelper/11_Notes",
+		"/home/mark/dwhelper/9_Notes",
+		"/home/mark/dwhelper/8_Notes",
+		"/home/mark/dwhelper/7_Notes",
+		"/home/mark/Downloads/Quiz questions WORLD - Trivia ATW.csv",
+		"/home/mark/Projects/Unity/Particula/GoDice/Unity/Project/Packages/manifest.json",
+		"/home/mark/Projects/Unity/Particula/GoDice_CES/Packages/manifest.json",
+		"/home/mark/Downloads/ExternalTestQuestion.json",
+		"/home/mark/Projects/Unity/Particula/GoDice_Therapy_2023/Unity/Project/Assets/Resources/Localization.csv",
+		"/home/mark/Downloads/Trivia ATW Broken.csv",
+		"/mnt/patriot/TmpBack/Repos/LinuxTips/xmodmap/services/xmodmap_start",
+		"/home/mark/Projects/Takenoko/Unhandled exception",
+		"/home/mark/Repos/LinuxTips/README.md",
+		"/home/mark/Repos/LinuxTips/Transmission/settings.json",
+		"/home/mark/Repos/LinuxTips/xmodmap/services/suspend/suspend.target",
+		"/home/mark/Projects/Unity/Particula/GoDice/Unity/Project/Assets/Content/Games/Trivia/World/Animations/SetupPanel/Visible.anim",
+		"/home/mark/Repos/LinuxTips/Notes/.obsidian/snippets/highligh_rules.css",
+		"/home/mark/Projects/Unity/Particula/GoDice/Unity/Project/Assets/Content/Games/BumpySpace/SetupFiles/GameSettings.asset",
+		"/mnt/patriot/Shared/Shortcuts",
+		"/home/mark/Desktop/rememeber.txt",
+		"/mnt/patriot/SystemBackup/Users/Mark/Desktop/Egg TODO",
+		"/mnt/SamsungNVMe/Users/mark/Desktop/Egg TODO",
+		"/home/mark/Desktop/Egg TODO",
+		"/mnt/SamsungNVMe/Windows.old/Users/Mark/Desktop/Egg TODO",
+		"/home/mark/Projects/clockify API",
+		"/home/mark/.config/yazi/yazi.toml",
+		"/home/mark/.config/yazi/keymap.toml",
+		"/home/mark/Projects/yazi/README.md",
+		"/usr/sbin/ovpn",
+		"/home/mark/xmodmap_start",
+		"/home/mark/Downloads/.Xmodmap",
+		"/home/mark/.config/alacritty/alacritty.toml",
+		"/home/mark/Projects/Unity/Particula/GoDice/Unity/Project/ProjectSettings/GvhProjectSettings.xml",
+		"/home/mark/Desktop/How to fix tabs in Rider",
+		"/mnt/patriot/SystemBackup/Users/Mark/Desktop/ИП/Как починить табы в райдере.txt",
+		"/home/mark/Repos/LinuxTips/xmodmap/services/xmodmap_start",
+		"/home/mark/Unity/Hub/Editor/2023.1.3f1/Editor/Data/Resources/unity default resources",
+		"/home/mark/.xbindkeysrc",
+		"/home/mark/.Xmodmap.bak",
+		"/home/mark/.profile",
+		"/home/mark/.bash_profile",
+		"/home/mark/.bashrc",
+		"/home/mark/.config/fish/completions/watson.fish",
+		"/home/mark/.zshrc",
+		"/home/mark/.zshenv",
+		"/home/mark/.shell.pre-oh-my-zsh",
+		"/home/mark/.local/share/applications/rider.desktop",
+		"/home/mark/.local/share/applications/discord.desktop",
+		"/home/mark/.Xmodmap_orig",
+		"/home/mark/Repos/LinuxTips/vpn/install",
+		"/home/mark/.config/fish/config.fish",
+		"/home/mark/Repos/LinuxTips/vpn/ovpn.1",
+		"/home/mark/Repos/LinuxTips/vpn/ovpn",
+		"/home/mark/term_test",
+		"/home/mark/.gitconfig",
+		"/home/mark/.local/share/applications/rustrover.desktop",
+		"/home/mark/.local/share/applications/pycharm.desktop",
+		"/home/mark/.local/share/applications/vial.desktop",
+		"/opt/vial/Vial.AppImage",
+		"/home/mark/.config/fish/fish_variables",
+		"/home/mark/Scripts/vpn/ovpn",
+		"/home/mark/Scripts/vpn/cvpn",
+		"/home/mark/Repos/LinuxTips/install_nerd_fonts",
+		"/home/mark/vpn",
+		"/home/mark/Downloads/157720-gray_kommander.color"
+	],
+	"find":
+	{
+		"height": 92.0
+	},
+	"find_in_files":
+	{
+		"height": 244.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 68.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "awesome_clockify.sublime-project",
+	"replace":
+	{
+		"height": 168.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 431.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 2
+	}
+}
