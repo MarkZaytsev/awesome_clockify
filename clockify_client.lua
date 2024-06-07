@@ -29,7 +29,7 @@ function ClockifyClient:new(o)
 	end
 	
 	self.workspace_url = api_url .. "/workspaces/"..o.workspace_id
-	self.workspace_user_url = self.workspace_url.."/user/"..o.user_id
+	self.workspace_user_url = self.workspace_url .. "/user/" .. o.user_id
 
 	return o
 end
