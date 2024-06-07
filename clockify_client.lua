@@ -3,6 +3,7 @@ local rest_client = require("awesome_clockify.rest_client")
 local logger = require("awesome_clockify.logger")
 
 local api_url = "https://api.clockify.me/api/v1"
+local user_url = api_url .. "/user"
 
 local ClockifyClient = {}
 
@@ -12,10 +13,21 @@ function ClockifyClient:new(o)
 	self.__index = self
 
 	assert(o.api_key, "No api_key provided for ClockifyClient")
-	assert(o.workspace_id, "No workspace_id provided for ClockifyClient")
-	assert(o.user_id, "No user_id provided for ClockifyClient")
 
-	self.user_url = api_url .. "/user"
+	if not o.workspace_id or not o.user_id then
+		if not o.workspace_id then
+			logger.log("No workspace_id provided for ClockifyClient. Assuming default_workspace_id.")
+		end
+
+		if not o.user_id then
+			logger.log("No user_id provided for ClockifyClient. Assuming user_id from API token.")
+		end
+
+		local user = self.get_user(o)
+		o.user_id = o.user_id or user.id
+		o.workspace_id = o.workspace_id or user.default_workspace_id
+	end
+	
 	self.workspace_url = api_url .. "/workspaces/"..o.workspace_id
 	self.workspace_user_url = self.workspace_url.."/user/"..o.user_id
 
@@ -23,12 +35,12 @@ function ClockifyClient:new(o)
 end
 
 function ClockifyClient:get_user()
-	local code, response = rest_client.get(self.user_url, self.api_key)
+	local _, response = rest_client.get(user_url, self.api_key)
 
 	return {
 	    id = response["id"],
 	    time_zone = response["settings"]["timeZone"],
-	    default_workspace = response["defaultWorkspace"]
+	    default_workspace_id = response["defaultWorkspace"]
 	}
 end
 
@@ -118,5 +130,4 @@ function ClockifyClient:get_active_time_seconds()
 
 	return tools.parse_clockify_time_to_seconds(start_time)
 end
-
 return ClockifyClient

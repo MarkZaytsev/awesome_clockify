@@ -16,4 +16,4 @@ local controller_active_secconds = setup.controller:get_active_time_seconds()
 setup.logger.log("controller.active_time_seconds: ", client_active_seconds)
 assert(controller_active_secconds == 0, "Controller has active_time_seconds")
 
-setup:complete_test()
+setup.complete_test()

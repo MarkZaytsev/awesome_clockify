@@ -20,8 +20,8 @@ function TestSetup:new(o)
 	return o
 end
 
-function TestSetup:complete_test()
-	self.logger.log("Test complete!")
+function TestSetup.complete_test()
+	logger.log("Test complete!")
 end
 
 return TestSetup

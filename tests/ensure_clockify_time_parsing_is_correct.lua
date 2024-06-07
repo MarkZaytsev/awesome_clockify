@@ -7,4 +7,4 @@ local delta_seconds = setup.tools.parse_clockify_time_to_seconds(clockify_time)
 
 assert(delta_seconds == 0, "delta_seconds must be zero")
 
-setup:complete_test()
+setup.complete_test()

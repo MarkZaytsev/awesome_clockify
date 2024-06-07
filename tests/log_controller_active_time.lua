@@ -10,4 +10,4 @@ for i=1,10 do
 	setup.logger.log("active_time_seconds: ", setup.controller:get_active_time_seconds())
 end
 
-setup:complete_test()
+setup.complete_test()

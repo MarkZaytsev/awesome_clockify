@@ -9,4 +9,4 @@ local total_today_time = os.date("!%X", total_today_seconds)
 setup.logger.log("total_today_seconds: ", total_today_seconds)
 setup.logger.log("total_today_time: ", total_today_time)
 
-setup:complete_test()
+setup.complete_test()

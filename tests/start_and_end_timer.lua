@@ -16,4 +16,4 @@ local code, stop_resp = setup.client:stop_timer()
 setup.logger.log("code: "..code)
 setup.tools.log_table("resp: ", stop_resp)
 
-setup:complete_test()
+setup.complete_test()
