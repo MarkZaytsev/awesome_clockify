@@ -1,8 +1,8 @@
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
 local json = require("json")
-local tools = require("awesome_clockify.tools")
-local logger = require("awesome_clockify.logger")
+local tools = require("awesome_clockify.src.tools")
+local logger = require("awesome_clockify.src.logger")
 
 local client = {}
 

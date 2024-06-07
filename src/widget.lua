@@ -1,6 +1,6 @@
 local wibox = require("wibox")
 local gears = require("gears")
-local Controller = require("awesome_clockify.controller")
+local Controller = require("awesome_clockify.src.controller")
 local beautiful = require("beautiful")
 
 local clockify_widget = {}

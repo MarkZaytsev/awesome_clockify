@@ -1,6 +1,6 @@
-local tools = require("awesome_clockify.tools")
-local rest_client = require("awesome_clockify.rest_client")
-local logger = require("awesome_clockify.logger")
+local tools = require("awesome_clockify.src.tools")
+local rest_client = require("awesome_clockify.src.rest_client")
+local logger = require("awesome_clockify.src.logger")
 
 local api_url = "https://api.clockify.me/api/v1"
 local user_url = api_url .. "/user"

@@ -1,4 +1,4 @@
-local logger = require("awesome_clockify.logger")
+local logger = require("awesome_clockify.src.logger")
 
 local tools = {}
 
