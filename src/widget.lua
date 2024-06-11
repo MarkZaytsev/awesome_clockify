@@ -7,7 +7,7 @@ local clockify_widget = {}
 
 local function worker(user_args)
 	local args = user_args or {}
-	local width = args.width or 200
+	local width = args.width or 110
 	
 	assert(args.controller, "No controller provided to widget.")
 	
