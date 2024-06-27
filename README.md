@@ -3,6 +3,7 @@
 </div>
 
 A plugin for AwesomeWM to display [Clockify](https://clockify.me) timer and to toggle it with a shortcut.
+![simplescreenrecorder-2024-06-27_16 48 37](https://github.com/MarkZaytsev/awesome_clockify/assets/50739566/0ab30b3a-75ba-42e5-ad6a-10b284fadc5f)
 
 ## Contents ##
 1. [Installation](#installation)
@@ -91,6 +92,8 @@ Parapmetes:
 | `workspace_id` | nil | Workspace id for retrieving and adding new entries. Optional, see [Debug](#debug) |
 | `user_id` | nil | Your user id in given workspace. Optional, see [Debug](#debug) |
 | `is_active_time_display_required` | false | If `true` then only active entry time displayed while timer is running. Otherwise total today time displayed including active timer. |
+| `is_entry_description_display_required` | false | If `true` then active entry name is displayed when timer it running. |
+| `separator_character` | "\|" | Separator character between entry description and time. Used only if `is_entry_description_display_required` is `true`. |
 <a name="widget"></a>
 ## Widget ##
 Widget parapmetes:
