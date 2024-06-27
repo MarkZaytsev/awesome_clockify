@@ -90,6 +90,10 @@ function ClockifyClient:get_entries(start_time)
 	return entries
 end
 
+function ClockifyClient:get_entry_description(entry)
+	return entry["description"]
+end
+
 local function get_entry_duration(entry)
 	return entry["timeInterval"]["duration"]
 end
@@ -113,7 +117,10 @@ end
 
 function ClockifyClient:get_active_time_seconds()
 	local entry = self:get_last_time_entry()
-	
+	return self:get_active_time_seconds_from_entry(entry)
+end
+
+function ClockifyClient:get_active_time_seconds_from_entry(entry)
 	if not entry then
 		return 0
 	end
@@ -130,4 +137,5 @@ function ClockifyClient:get_active_time_seconds()
 
 	return tools.parse_clockify_time_to_seconds(start_time)
 end
+
 return ClockifyClient
