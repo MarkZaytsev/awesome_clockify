@@ -3,8 +3,8 @@
 </div>
 
 A plugin for AwesomeWM to display [Clockify](https://clockify.me) timer and to toggle it with a shortcut.
-![simplescreenrecorder-2024-06-27_16 48 37](https://github.com/MarkZaytsev/awesome_clockify/assets/50739566/0ab30b3a-75ba-42e5-ad6a-10b284fadc5f)
 
+![simplescreenrecorder-2024-06-27_16 48 37](https://github.com/MarkZaytsev/awesome_clockify/assets/50739566/0ab30b3a-75ba-42e5-ad6a-10b284fadc5f)
 ## Contents ##
 1. [Installation](#installation)
 2. [Clockify API Token](#clockify_token)
