@@ -8,9 +8,10 @@ A plugin for AwesomeWM to display [Clockify](https://clockify.me) timer and to t
 1. [Installation](#installation)
 2. [Clockify API Token](#clockify_token)
 3. [Setup](#setup)
-4. [Customization](#customization)
-5. [Debug](#debug)
-6. [TODO](#todo)
+4. [Controller](#controller)
+5. [Widget](#widget)
+6. [Debug](#debug)
+7. [TODO](#todo)
 
 <a name="installation"></a>
 ## Installation ##
@@ -81,8 +82,17 @@ awful.key({ modkey, "Shift", "Control" }, "g", function() clockify_controller:to
 ```
 
 Then reload awesomewm.
-<a name="customization"></a>
-## Customization ##
+<a name="controller"></a>
+## Controller ##
+Parapmetes:
+| Name | Default | Description |
+|---|---|---|
+| `api_key` | nil | Your API key for Clockify service |
+| `workspace_id` | nil | Workspace id for retrieving and adding new entries. Optional, see [Debug](#debug) |
+| `user_id` | nil | Your user id in given workspace. Optional, see [Debug](#debug) |
+| `is_active_time_display_required` | false | If `true` then only active entry time displayed while timer is running. Otherwise total today time displayed including active timer. |
+<a name="widget"></a>
+## Widget ##
 Widget parapmetes:
 | Name | Default | Description |
 |---|---|---|
