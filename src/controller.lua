@@ -16,6 +16,8 @@ function Controller:new(o)
 end
 
 function Controller:initialize()
+	self.is_initialized = true
+	
 	self:update_total_tracked_seconds_today()
 
 	local entry = self.clockify_client:get_last_time_entry()

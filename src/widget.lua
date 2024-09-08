@@ -11,8 +11,6 @@ local function worker(user_args)
 	
 	assert(args.controller, "No controller provided to widget.")
 	
-	args.controller:initialize()
-
 	clockify_widget = wibox.widget {
 	    {
 	        {
@@ -33,9 +31,15 @@ local function worker(user_args)
 
 	gears.timer {
 		timeout   = 1,
-	    call_now  = true,
+	    call_now  = false,
 	    autostart = true,
 	    callback  = function()	
+	    	-- We don't want to block rc.lua initialization waiting for API responses.
+	    	-- Or break initialization with errors
+	    	if not args.controller.is_initialized then
+	    		args.controller:initialize()
+	    	end
+
 	    	clockify_widget:set_timer_text(args.controller:get_text())
 
 	    	if args.controller.is_running then
