@@ -1,4 +1,4 @@
-local TestSetup = require("awesome_clockify.debug.test_setup")
+local TestSetup = require("awesome_clockify.debug.clockify.test_setup")
 
 local setup = TestSetup:new()
 local last_time_entry = setup.client:get_last_time_entry()

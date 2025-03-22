@@ -48,8 +48,8 @@ It will look something like `https://app.clockify.me/workspaces/65e67dd7d123487f
 ## Setup ##
 Edit your `rc.lua` file:
 ```lua
-local ClockifyClient = require("awesome_clockify.src.clockify_client")
-local ClockifyController = require("awesome_clockify.src.controller")
+local ClockifyClient = require("awesome_clockify.src.clockify.client")
+local ClockifyController = require("awesome_clockify.src.clockify.controller")
 local clockify_widget = require("awesome_clockify.src.widget")
 
 ...
