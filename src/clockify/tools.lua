@@ -2,27 +2,6 @@ local logger = require("awesome_clockify.src.logger")
 
 local tools = {}
 
-local tab = "\t"
-local newline = "\n"
-function tools.as_string(obj, depth)
-	depth = depth or 1
-
-	if type(obj) == 'table' then
-	  local s = '{ '..newline
-	  for k,v in pairs(obj) do
-	     if type(k) ~= 'number' then k = '"'..k..'"' end
-	     s = s .. string.rep(tab, depth) .. '['..k..'] = ' .. tools.as_string(v, depth + 1) .. ','..newline
-	  end
-	  return s .. string.rep(tab, depth - 1) .. '}'
-	else
-	  return tostring(obj)
-	end
-end
-
-function tools.log_table(text, obj)
-	logger.log(text..tools.as_string(obj))
-end
-
 -- Clockify format is "2024-06-01T05:00:50Z"
 function tools.get_clockify_time_now_utc()
 	return os.date("!%Y-%m-%dT%XZ")
@@ -45,7 +24,7 @@ function tools.parse_clockify_time_to_seconds(text)
 	}
 
 	logger.log("got clockify_time to parse: ", text)
-	tools.log_table("reverse date: ", os.date("%c", time_passed))
+	logger.log_table("reverse date: ", os.date("%c", time_passed))
 
 	return os.time(os.date("!*t")) - time_passed
 end

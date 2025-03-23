@@ -2,7 +2,7 @@ local ClockifyClient = require("awesome_clockify.src.clockify.client")
 local ClockifyController = require("awesome_clockify.src.clockify.controller")
 local credentials = require("awesome_clockify.debug.clockify.credentials")
 local logger = require("awesome_clockify.src.logger")
-local tools = require("awesome_clockify.src.tools")
+local tools = require("awesome_clockify.src.clockify.tools")
 
 logger.is_active = true
 
