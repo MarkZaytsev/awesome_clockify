@@ -1,5 +1,6 @@
 local rest_client = require("awesome_clockify.src.rest_client")
 local logger = require("awesome_clockify.src.logger")
+local uuid = require("lua-uuid")
 
 local Client = {}
 
@@ -43,28 +44,21 @@ local function get_entry_duration(entry)
 	return end_time - start_time
 end
 
--- TODO adapt
 function Client:resume_timer()
-	local last_time_entry = self:get_last_time_entry()
+	local last_entry = self:get_last_time_entry()
+	local now_time = get_now_time()
 
-	local payload = {
-        description = last_time_entry["description"],
-        tagIds = last_time_entry["tagIds"],
-        start = tools.get_clockify_time_now_utc(),
-        projectId = last_time_entry["projectId"]
+	local entry = {
+		key = tostring(uuid.new()),
+        ds = self:get_entry_description(last_entry),
+        t1 = now_time,
+        t2 = now_time,
+        mt = now_time,
+        st = 0
     }
 
-	-- local now = get_now_time()
-	-- local payload = {
-    --     "key": generate_uid(),
-    --     "t1": now,
-    --     "t2": now,
-    --     "mt": now,
-    --     "st": 0,
-    --     "ds": selected_record["ds"],
-    -- }
-
-	return rest_client.post(self.workspace_url.."/time-entries", self.headers, payload)
+	rest_client.put(self.api_url.."/records", self.headers, { entry })
+	return entry
 end
 
 function Client:stop_timer()
@@ -74,7 +68,8 @@ function Client:stop_timer()
 	end
 
 	last_entry["t2"] = get_now_time()
-	return rest_client.put(self.api_url.."/records", self.headers, { last_entry })
+	rest_client.put(self.api_url.."/records", self.headers, { last_entry })
+	return last_entry, 200
 end
 
 -- TODO adapt

@@ -124,7 +124,30 @@ luarocks install luasocket
 luarocks install luasec
 luarocks install lua-cjson
 luarocks install md5
+luarocks install lib-uuid
 ```
+> [!IMPORTANT]
+> 
+> On Unix-like distributions, ```lua-uuid``` depends on ```libuuid```:
+> 
+> * On Debian-based (e.g: Ubuntu) distributions:
+> 
+>     ```bash
+>     sudo apt install -y uuid-dev
+>     ```
+> 
+> * On RedHat-based (e.g: Fedora) distributions:
+> 
+>     ```bash
+>     sudo dnf install libuuid-devel
+>     ```
+> 
+> * On BSD-based (e.g: FreeBSD) distributions:
+> 
+>     ```bash
+>     pkg install e2fsprogs-libuuid
+>     ```
+
 
 <a name="todo"></a>
 ## TODO ##

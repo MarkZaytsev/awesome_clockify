@@ -3,17 +3,12 @@ local TestSetup = require("awesome_clockify.debug.timetagger.test_setup")
 
 local setup = TestSetup:new()
 
---201 - success
--- local code, resume_resp = setup.client:resume_timer()
--- setup.logger.log("code: "..code)
--- setup.logger.log_table("resp: ", resume_resp)
+local entry = setup.client:resume_timer()
+setup.logger.log_table("Resuming with new entry: ", entry)
 
--- socket.sleep(5)
+socket.sleep(5)
 
--- 200 - success
--- 404 - no active time entry
-local _, code = setup.client:stop_timer()
-setup.logger.log("code: "..code)
--- setup.logger.log_table("resp: ", stop_resp)
+local entry, code = setup.client:stop_timer()
+setup.logger.log_table("Timer stopped with entry: ", entry)
 
 setup.complete_test()
