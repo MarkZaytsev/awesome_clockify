@@ -64,19 +64,19 @@ end
 function Client:stop_timer()
 	local last_entry = self:get_last_time_entry()
 	if not is_entry_running(last_entry) then
-		return nil, 404
+		return nil
 	end
 
 	last_entry["t2"] = get_now_time()
 	rest_client.put(self.api_url.."/records", self.headers, { last_entry })
-	return last_entry, 200
+	return last_entry
 end
 
--- TODO adapt
 function Client:toggle_timer()
 	local is_running = false
-	local entry, code = self:stop_timer()
-	if code == 404 then
+	
+	local entry = self:stop_timer()
+	if not entry then
 		is_running = true
 		entry = self:resume_timer()
 	end	

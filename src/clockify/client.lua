@@ -75,15 +75,16 @@ function Client:stop_timer()
         ["end"] = tools.get_clockify_time_now_utc()
     }
 
-	return rest_client.patch(self.workspace_user_url.."/time-entries", self.headers, payload)
+	local entry, code =  rest_client.patch(self.workspace_user_url.."/time-entries", self.headers, payload)
+	return code == 404 and entry or nil
 end
 
 function Client:toggle_timer()
 	local is_running = false
-	local entry, code = self:stop_timer()
-	if code == 404 then
+	local entry = self:stop_timer()
+	if not entry then
 		is_running = true
-		entry, code = self:resume_timer()
+		entry = self:resume_timer()
 	end	
 
 	return { 
