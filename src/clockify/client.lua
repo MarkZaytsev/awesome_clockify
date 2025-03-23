@@ -98,11 +98,15 @@ local function get_entry_duration(entry)
 	return entry["timeInterval"]["duration"]
 end
 
+local function is_entry_completed(entry)
+	return not(get_entry_duration(entry) == nil)
+end
+
 local function get_entry_start_time(entry)
 	return entry["timeInterval"]["start"]
 end
 
-function Client:get_total_seconds(start_time)
+function Client:get_total_seconds_from_completed_entries_since(start_time)
 	local entries = self:get_entries(start_time)
 	local total_sec = 0
 	for _,v in pairs(entries) do
@@ -125,8 +129,7 @@ function Client:get_active_time_seconds_from_entry(entry)
 		return 0
 	end
 
-	local duration = get_entry_duration(entry)
-	if duration then
+	if is_entry_completed(entry) then
 		return 0
 	end
 

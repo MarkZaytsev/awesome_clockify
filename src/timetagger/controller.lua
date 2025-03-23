@@ -16,7 +16,7 @@ end
 function Controller:initialize()
 	self.is_initialized = true
 	
-	self:update_total_tracked_seconds_today()
+	self:update_total_tracked_seconds_today_from_completed_entries()
 
 	local entry = self.client:get_last_time_entry()
 	local active_seconds = self.client:get_active_time_seconds_from_entry(entry)
@@ -76,7 +76,7 @@ function Controller:toggle_timer()
 	local result = self.client:toggle_timer()
 	if not result.is_running then
 	 	self.is_running = false
-	 	self:update_total_tracked_seconds_today()
+	 	self:update_total_tracked_seconds_today_from_completed_entries()
 	end
 
  	if self.is_entry_description_display_required then
@@ -84,9 +84,9 @@ function Controller:toggle_timer()
 	end
 end
 
-function Controller:update_total_tracked_seconds_today()
+function Controller:update_total_tracked_seconds_today_from_completed_entries()
 	local today_start_time = tools.get_clockify_time_today_utc()
-	self.total_tracked_seconds_today = self.client:get_total_seconds(today_start_time)
+	self.total_tracked_seconds_today = self.client:get_total_seconds_from_completed_entries_since(today_start_time)
 end
 
 return Controller
