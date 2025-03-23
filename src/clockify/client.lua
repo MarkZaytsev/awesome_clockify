@@ -5,23 +5,23 @@ local logger = require("awesome_clockify.src.logger")
 local api_url = "https://api.clockify.me/api/v1"
 local user_url = api_url .. "/user"
 
-local ClockifyClient = {}
+local Client = {}
 
-function ClockifyClient:new(o)
+function Client:new(o)
 	o = o or {}
 	setmetatable(o, self)
 	self.__index = self
 
-	assert(o.api_key, "No api_key provided for ClockifyClient")
+	assert(o.api_key, "No api_key provided for Client")
 	self.headers = { ["x-api-key"] = o.api_key }
 	
 	if not o.workspace_id or not o.user_id then
 		if not o.workspace_id then
-			logger.log("No workspace_id provided for ClockifyClient. Assuming default_workspace_id.")
+			logger.log("No workspace_id provided for Client. Assuming default_workspace_id.")
 		end
 
 		if not o.user_id then
-			logger.log("No user_id provided for ClockifyClient. Assuming user_id from API token.")
+			logger.log("No user_id provided for Client. Assuming user_id from API token.")
 		end
 
 		local user = self.get_user(o)
@@ -35,7 +35,7 @@ function ClockifyClient:new(o)
 	return o
 end
 
-function ClockifyClient:get_user()
+function Client:get_user()
 	local response = rest_client.get(user_url, self.headers)
 
 	return {
@@ -45,12 +45,12 @@ function ClockifyClient:get_user()
 	}
 end
 
-function ClockifyClient:get_last_time_entry()
+function Client:get_last_time_entry()
 	local response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.headers)
 	return response and response[1]
 end
 
-function ClockifyClient:resume_timer()
+function Client:resume_timer()
 	local last_time_entry = self:get_last_time_entry()
 
 	payload = {
@@ -63,7 +63,7 @@ function ClockifyClient:resume_timer()
 	return rest_client.post(self.workspace_url.."/time-entries", self.headers, payload)
 end
 
-function ClockifyClient:stop_timer()
+function Client:stop_timer()
 	payload = {
         ["end"] = tools.get_clockify_time_now_utc()
     }
@@ -71,7 +71,7 @@ function ClockifyClient:stop_timer()
 	return rest_client.patch(self.workspace_user_url.."/time-entries", self.headers, payload)
 end
 
-function ClockifyClient:toggle_timer()
+function Client:toggle_timer()
 	local is_running = false
 	local resp, code = self:stop_timer()
 	if code == 404 then
@@ -86,11 +86,11 @@ function ClockifyClient:toggle_timer()
 	}
 end
 
-function ClockifyClient:get_entries(start_time)
+function Client:get_entries(start_time)
 	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.headers)
 end
 
-function ClockifyClient:get_entry_description(entry)
+function Client:get_entry_description(entry)
 	return entry["description"]
 end
 
@@ -102,7 +102,7 @@ local function get_entry_start_time(entry)
 	return entry["timeInterval"]["start"]
 end
 
-function ClockifyClient:get_total_seconds(start_time)
+function Client:get_total_seconds(start_time)
 	local entries = self:get_entries(start_time)
 	local total_sec = 0
 	for _,v in pairs(entries) do
@@ -115,12 +115,12 @@ function ClockifyClient:get_total_seconds(start_time)
 	return total_sec
 end
 
-function ClockifyClient:get_active_time_seconds()
+function Client:get_active_time_seconds()
 	local entry = self:get_last_time_entry()
 	return self:get_active_time_seconds_from_entry(entry)
 end
 
-function ClockifyClient:get_active_time_seconds_from_entry(entry)
+function Client:get_active_time_seconds_from_entry(entry)
 	if not entry then
 		return 0
 	end
@@ -138,4 +138,4 @@ function ClockifyClient:get_active_time_seconds_from_entry(entry)
 	return tools.parse_clockify_time_to_seconds(start_time)
 end
 
-return ClockifyClient
+return Client
