@@ -21,10 +21,11 @@ function Client:get_last_time_entry()
     local t1 = now - 35 * 60
     local t2 = now + 60
 	local response = rest_client.get(self.api_url.."/records?timerange="..t1.."-"..t2, self.headers)
-	local records = response.records
+	local records = response["records"]
 	return records and records[#records]
 end
 
+-- TODO adapt
 function Client:resume_timer()
 	local last_time_entry = self:get_last_time_entry()
 
@@ -48,6 +49,7 @@ function Client:resume_timer()
 	return rest_client.post(self.workspace_url.."/time-entries", self.headers, payload)
 end
 
+-- TODO adapt
 function Client:stop_timer()
 	local payload = {
         ["end"] = tools.get_clockify_time_now_utc()
@@ -56,6 +58,7 @@ function Client:stop_timer()
 	return rest_client.patch(self.workspace_user_url.."/time-entries", self.headers, payload)
 end
 
+-- TODO adapt
 function Client:toggle_timer()
 	local is_running = false
 	local resp, code = self:stop_timer()
@@ -71,22 +74,36 @@ function Client:toggle_timer()
 	}
 end
 
+-- TODO adapt
 function Client:get_entries(start_time)
 	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.headers)
 end
 
 function Client:get_entry_description(entry)
-	return entry["description"]
-end
-
-local function get_entry_duration(entry)
-	return entry["timeInterval"]["duration"]
+	return entry["ds"]
 end
 
 local function get_entry_start_time(entry)
-	return entry["timeInterval"]["start"]
+	return entry["t1"]
 end
 
+local function get_entry_end_time(entry)
+	return entry["t2"]
+end
+
+local function is_entry_running(entry)
+	local start_time = get_entry_start_time(entry)
+	local end_time = get_entry_end_time(entry)
+	return end_time == start_time
+end
+
+local function get_entry_duration(entry)
+	local start_time = get_entry_start_time(entry)
+	local end_time = get_entry_end_time(entry)
+	return end_time - start_time
+end
+
+-- TODO adapt
 function Client:get_total_seconds(start_time)
 	local entries = self:get_entries(start_time)
 	local total_sec = 0
@@ -110,17 +127,11 @@ function Client:get_active_time_seconds_from_entry(entry)
 		return 0
 	end
 
-	local duration = get_entry_duration(entry)
-	if duration then
-		return 0
+	if is_entry_running(entry) then
+		return os.time() - get_entry_start_time(entry)
 	end
 
-	local start_time = get_entry_start_time(entry)
-	if not start_time then
-		return 0
-	end
-
-	return tools.parse_clockify_time_to_seconds(start_time)
+	return get_entry_duration(entry)
 end
 
 return Client
