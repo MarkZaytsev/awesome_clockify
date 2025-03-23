@@ -8,8 +8,8 @@ socket.sleep(1)
 
 setup.controller:initialize()
 
-setup.logger.log("client active_time_seconds: ", setup.client:get_active_time_seconds())
+setup.logger.log("client active_time_seconds: ", setup.client:get_running_entry_time_seconds())
 setup.logger.log("controller.is_running: ", setup.controller.is_running)
-setup.logger.log("controller.active_time_seconds: ", setup.controller:get_active_time_seconds())
+setup.logger.log("controller.active_time_seconds: ", setup.controller:get_running_entry_time_seconds())
 
 setup.complete_test()

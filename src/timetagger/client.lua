@@ -103,8 +103,13 @@ local function get_entry_duration(entry)
 	return end_time - start_time
 end
 
+function Client:get_total_seconds_from_completed_entries_today()
+	local today_start_time = os.time(os.date("!*t"))
+	return get_total_seconds_from_completed_entries_since()
+end
+
 -- TODO adapt
-function Client:get_total_seconds(start_time)
+function Client:get_total_seconds_from_completed_entries_since(start_time)
 	local entries = self:get_entries(start_time)
 	local total_sec = 0
 	for _,v in pairs(entries) do
@@ -117,7 +122,7 @@ function Client:get_total_seconds(start_time)
 	return total_sec
 end
 
-function Client:get_active_time_seconds()
+function Client:get_running_entry_time_seconds()
 	local entry = self:get_last_time_entry()
 	return self:get_active_time_seconds_from_entry(entry)
 end

@@ -7,7 +7,7 @@ setup.controller:toggle_timer()
 for i=1,10 do
 	socket.sleep(1)
 	setup.logger.log("is_running: ", setup.controller.is_running)
-	setup.logger.log("active_time_seconds: ", setup.controller:get_active_time_seconds())
+	setup.logger.log("active_time_seconds: ", setup.controller:get_running_entry_time_seconds())
 end
 
 setup.complete_test()

@@ -106,6 +106,11 @@ local function get_entry_start_time(entry)
 	return entry["timeInterval"]["start"]
 end
 
+function Client:get_total_seconds_from_completed_entries_today()
+	local today_start_time = tools.get_clockify_time_today_utc()
+	return get_total_seconds_from_completed_entries_since(today_start_time)
+end
+
 function Client:get_total_seconds_from_completed_entries_since(start_time)
 	local entries = self:get_entries(start_time)
 	local total_sec = 0
@@ -119,7 +124,7 @@ function Client:get_total_seconds_from_completed_entries_since(start_time)
 	return total_sec
 end
 
-function Client:get_active_time_seconds()
+function Client:get_running_entry_time_seconds()
 	local entry = self:get_last_time_entry()
 	return self:get_active_time_seconds_from_entry(entry)
 end
