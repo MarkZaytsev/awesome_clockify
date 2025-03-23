@@ -35,6 +35,18 @@ function Client:new(o)
 	return o
 end
 
+local function get_entry_start_time(entry)
+	return entry["timeInterval"]["start"]
+end
+
+local function get_entry_duration(entry)
+	return entry["timeInterval"]["duration"]
+end
+
+local function is_entry_running(entry)
+	return get_entry_duration(entry) == nil
+end
+
 function Client:get_user()
 	local response = rest_client.get(user_url, self.headers)
 
@@ -68,15 +80,14 @@ end
 
 function Client:toggle_timer()
 	local is_running = false
-	local resp, code = self:stop_timer()
+	local entry, code = self:stop_timer()
 	if code == 404 then
 		is_running = true
-		code, resp = self:resume_timer()
+		entry, code = self:resume_timer()
 	end	
 
 	return { 
-		code = code,
-		response = resp,
+		entry = entry,
 		is_running = is_running
 	}
 end
@@ -92,19 +103,6 @@ end
 
 function Client:get_entry_description(entry)
 	return entry["description"]
-end
-
-
-local function get_entry_start_time(entry)
-	return entry["timeInterval"]["start"]
-end
-
-local function get_entry_duration(entry)
-	return entry["timeInterval"]["duration"]
-end
-
-local function is_entry_running(entry)
-	return get_entry_duration(entry) == nil
 end
 
 function Client:get_total_seconds_from_completed_entries_today()

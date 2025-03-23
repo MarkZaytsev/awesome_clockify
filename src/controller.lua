@@ -46,10 +46,10 @@ function Controller:get_time_text()
 end
 
 function Controller:get_active_time_text()
-	return os.date("!%X", self:get_running_entry_time_seconds())
+	return os.date("!%X", self:get_running_time_seconds())
 end
 
-function Controller:get_running_entry_time_seconds()
+function Controller:get_running_time_seconds()
 	if not self.is_running then
 		return 0
 	end
@@ -58,7 +58,7 @@ function Controller:get_running_entry_time_seconds()
 end
 
 function Controller:get_today_tracked_time_text()
-	local total_seconds = self.total_tracked_seconds_today + self:get_running_entry_time_seconds() 
+	local total_seconds = self.total_tracked_seconds_today + self:get_running_time_seconds() 
 	return os.date("!%X", total_seconds)
 end
 
@@ -80,7 +80,7 @@ function Controller:toggle_timer()
 	end
 
  	if self.is_entry_description_display_required then
-		self.active_entry_description = self.client:get_entry_description(result.response)
+		self.active_entry_description = self.client:get_entry_description(result.entry)
 	end
 end
 

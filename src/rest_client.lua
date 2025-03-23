@@ -68,4 +68,8 @@ function client.patch(url, headers, payload)
 	return client.request("PATCH", url, append_content_type(headers), payload)
 end
 
+function client.put(url, headers, payload)
+	return client.request("PUT", url, append_content_type(headers), payload)
+end
+
 return client
