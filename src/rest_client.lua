@@ -45,7 +45,7 @@ function client.request(method, url, api_key, payload)
                      text = "Code: "..code..". Response: ["..str_json.."]."})
 	end
 
-	return code, json_response
+	return json_response, code
 end
 
 function client.get(url, api_key)

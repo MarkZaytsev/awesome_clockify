@@ -1,7 +1,7 @@
 local TestSetup = require("awesome_clockify.debug.clockify.test_setup")
 local setup = TestSetup:new()
 
-local code, toggle_resp = setup.client:toggle_timer()
+local toggle_resp, code = setup.client:toggle_timer()
 setup.logger.log("code: "..code)
 setup.logger.log_table("resp: ", toggle_resp)
 

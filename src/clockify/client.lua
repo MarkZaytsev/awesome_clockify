@@ -1,4 +1,4 @@
-local tools = require("awesome_clockify.src.tools")
+local tools = require("awesome_clockify.src.clockify.tools")
 local rest_client = require("awesome_clockify.src.rest_client")
 local logger = require("awesome_clockify.src.logger")
 
@@ -35,7 +35,7 @@ function ClockifyClient:new(o)
 end
 
 function ClockifyClient:get_user()
-	local _, response = rest_client.get(user_url, self.api_key)
+	local response = rest_client.get(user_url, self.api_key)
 
 	return {
 	    id = response["id"],
@@ -45,7 +45,7 @@ function ClockifyClient:get_user()
 end
 
 function ClockifyClient:get_last_time_entry()
-	local _, response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.api_key)
+	local response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.api_key)
 	return response and response[1]
 end
 
@@ -72,7 +72,7 @@ end
 
 function ClockifyClient:toggle_timer()
 	local is_running = false
-	local code, resp = self:stop_timer()
+	local resp, code = self:stop_timer()
 	if code == 404 then
 		is_running = true
 		code, resp = self:resume_timer()
@@ -86,8 +86,7 @@ function ClockifyClient:toggle_timer()
 end
 
 function ClockifyClient:get_entries(start_time)
-	local _, entries = rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.api_key)
-	return entries
+	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.api_key)
 end
 
 function ClockifyClient:get_entry_description(entry)
