@@ -1,8 +1,5 @@
-local tools = require("awesome_clockify.src.tools")
 local rest_client = require("awesome_clockify.src.rest_client")
 local logger = require("awesome_clockify.src.logger")
-
-local api_url = "http://localhost:8080/timetagger/api/v2/"
 
 local Client = {}
 
@@ -18,25 +15,38 @@ function Client:new(o)
 end
 
 function Client:get_last_time_entry()
-	local _, response = rest_client.get(self.api_url.."/records?page-size=1", self.api_key)
-	return response and response[1]
+	-- Approach is based on github.com/almarklein/timetagger_cli/blob/main/timetagger_cli/core.py#L67
+	local now = os.time()
+    local t1 = now - 35 * 60
+    local t2 = now + 60
+	return rest_client.get(self.api_url.."/records?timerange="..t1.."-"..t2, self.api_key)
 end
 
 function Client:resume_timer()
 	local last_time_entry = self:get_last_time_entry()
 
-	payload = {
+	local payload = {
         description = last_time_entry["description"],
         tagIds = last_time_entry["tagIds"],
         start = tools.get_clockify_time_now_utc(),
         projectId = last_time_entry["projectId"]
     }
 
+	-- local now = os.time()
+	-- local payload = {
+    --     "key": generate_uid(),
+    --     "t1": now,
+    --     "t2": now,
+    --     "mt": now,
+    --     "st": 0,
+    --     "ds": selected_record["ds"],
+    -- }
+
 	return rest_client.post(self.workspace_url.."/time-entries", self.api_key, payload)
 end
 
 function Client:stop_timer()
-	payload = {
+	local payload = {
         ["end"] = tools.get_clockify_time_now_utc()
     }
 
@@ -45,7 +55,7 @@ end
 
 function Client:toggle_timer()
 	local is_running = false
-	local code, resp = self:stop_timer()
+	local resp, code = self:stop_timer()
 	if code == 404 then
 		is_running = true
 		code, resp = self:resume_timer()
@@ -59,8 +69,7 @@ function Client:toggle_timer()
 end
 
 function Client:get_entries(start_time)
-	local _, entries = rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.api_key)
-	return entries
+	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.api_key)
 end
 
 function Client:get_entry_description(entry)
