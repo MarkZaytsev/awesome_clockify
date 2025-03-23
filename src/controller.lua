@@ -1,5 +1,3 @@
-local tools = require("awesome_clockify.src.clockify.tools")
-
 local Controller = {}
 
 function Controller:new(o)
@@ -20,12 +18,12 @@ function Controller:initialize()
 	
 	self:update_total_tracked_seconds_today_from_completed_entries()
 
-	local entry = self.client:get_last_time_entry()
-	local active_seconds = self.client:get_active_time_seconds_from_entry(entry)
+	local active_seconds = self.client:get_running_entry_time_seconds()
 	self.start_time = os.time() - active_seconds
 	self.is_running = active_seconds ~= 0
 
 	if self.is_running and self.is_entry_description_display_required then
+		local entry = self.client:get_last_time_entry()
 		self.active_entry_description = self.client:get_entry_description(entry)
 	end
 end
@@ -48,10 +46,10 @@ function Controller:get_time_text()
 end
 
 function Controller:get_active_time_text()
-	return os.date("!%X", self:get_active_time_seconds())
+	return os.date("!%X", self:get_running_entry_time_seconds())
 end
 
-function Controller:get_active_time_seconds()
+function Controller:get_running_entry_time_seconds()
 	if not self.is_running then
 		return 0
 	end
@@ -60,7 +58,7 @@ function Controller:get_active_time_seconds()
 end
 
 function Controller:get_today_tracked_time_text()
-	local total_seconds = self.total_tracked_seconds_today + self:get_active_time_seconds() 
+	local total_seconds = self.total_tracked_seconds_today + self:get_running_entry_time_seconds() 
 	return os.date("!%X", total_seconds)
 end
 
@@ -87,8 +85,7 @@ function Controller:toggle_timer()
 end
 
 function Controller:update_total_tracked_seconds_today_from_completed_entries()
-	local today_start_time = tools.get_clockify_time_today_utc()
-	self.total_tracked_seconds_today = self.client:get_total_seconds_from_completed_entries_since(today_start_time)
+	self.total_tracked_seconds_today = self.client:get_total_seconds_from_completed_entries_today()
 end
 
 return Controller

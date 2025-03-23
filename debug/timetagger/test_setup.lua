@@ -1,5 +1,5 @@
 local TimeTaggerClient = require("awesome_clockify.src.timetagger.client")
-local TimeTaggerController = require("awesome_clockify.src.timetagger.controller")
+local Controller = require("awesome_clockify.src.controller")
 local credentials = require("awesome_clockify.debug.timetagger.credentials")
 local logger = require("awesome_clockify.src.logger")
 
@@ -13,7 +13,7 @@ function TestSetup:new(o)
 	self.__index = self
 
 	self.client = TimeTaggerClient:new(credentials)
-	self.controller = TimeTaggerController:new{ client = self.client }
+	self.controller = Controller:new{ client = self.client }
 	self.logger = logger
 	return o
 end
