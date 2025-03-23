@@ -1,4 +1,5 @@
 local json = require("json")
+local table_tools = require("awesome_clockify.src.table_tools")
 local logger = require("awesome_clockify.src.logger")
 local requests = require("awesome_clockify.src.requests")
 local is_awesome_on, naughty = pcall(function() return require("naughty") end)
@@ -53,14 +54,18 @@ function client.get(url, headers)
 	return client.request("GET", url, headers)
 end
 
+local function append_content_type(headers)
+	local headers_copy = table_tools.shallow_copy(headers)
+	headers_copy["content-type"] = 'application/json'
+	return headers_copy
+end
+
 function client.post(url, headers, payload)
-	headers["content-type"] = 'application/json'
-	return client.request("POST", url, headers, payload)
+	return client.request("POST", url, append_content_type(headers), payload)
 end
 
 function client.patch(url, headers, payload)
-	headers["content-type"] = 'application/json'
-	return client.request("PATCH", url, headers, payload)
+	return client.request("PATCH", url, append_content_type(headers), payload)
 end
 
 return client
