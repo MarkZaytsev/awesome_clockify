@@ -1,4 +1,4 @@
-local tools = require("awesome_clockify.src.tools")
+local tools = require("awesome_clockify.src.clockify.tools")
 
 local Controller = {}
 
