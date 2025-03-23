@@ -20,7 +20,9 @@ function Client:get_last_time_entry()
 	local now = os.time()
     local t1 = now - 35 * 60
     local t2 = now + 60
-	return rest_client.get(self.api_url.."/records?timerange="..t1.."-"..t2, self.headers)
+	local response = rest_client.get(self.api_url.."/records?timerange="..t1.."-"..t2, self.headers)
+	local records = response.records
+	return records and records[#records]
 end
 
 function Client:resume_timer()
