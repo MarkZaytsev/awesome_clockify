@@ -13,7 +13,8 @@ function ClockifyClient:new(o)
 	self.__index = self
 
 	assert(o.api_key, "No api_key provided for ClockifyClient")
-
+	rest_client.api_key_header = "x-api-key"
+	
 	if not o.workspace_id or not o.user_id then
 		if not o.workspace_id then
 			logger.log("No workspace_id provided for ClockifyClient. Assuming default_workspace_id.")

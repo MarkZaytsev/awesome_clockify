@@ -3,10 +3,7 @@ local logger = require("awesome_clockify.src.logger")
 local requests = require("awesome_clockify.src.requests")
 local is_awesome_on, naughty = pcall(function() return require("naughty") end)
 
-local client = {
-	api_key_header = "x-api-key"
-	-- api_key_header = "authtoken"
-}
+local client = {}
 
 local function notify(title, text)
 	if not is_awesome_on then
@@ -21,7 +18,8 @@ local function notify(title, text)
 end
 
 function client.request(method, url, api_key, payload)
-	local response = {}
+	assert(client.api_key_header, "No api_key_header provided to rest_client.")
+
 	local request = {
 		url = url,
 		data = payload and json.encode(payload),

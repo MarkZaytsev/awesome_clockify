@@ -10,6 +10,7 @@ function Client:new(o)
 
 	assert(o.api_key, "No authtoken provided for Client")
 	assert(o.api_url, "No api_url provided for Client")
+	rest_client.api_key_header = "authtoken"
 
 	return o
 end
