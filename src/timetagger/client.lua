@@ -15,16 +15,6 @@ function Client:new(o)
 	return o
 end
 
-function Client:get_last_time_entry()
-	-- Approach is based on github.com/almarklein/timetagger_cli/blob/main/timetagger_cli/core.py#L67
-	local now = os.time()
-    local t1 = now - 35 * 60
-    local t2 = now + 60
-	local response = rest_client.get(self.api_url.."/records?timerange="..t1.."-"..t2, self.headers)
-	local records = response["records"]
-	return records and records[#records]
-end
-
 -- TODO adapt
 function Client:resume_timer()
 	local last_time_entry = self:get_last_time_entry()
@@ -74,9 +64,20 @@ function Client:toggle_timer()
 	}
 end
 
--- TODO adapt
+local function get_today_start_time()
+	return os.time(os.date("!*t"))
+end
+
+function Client:get_last_time_entry()
+	local today_start_time = get_today_start_time()
+	local entries = self:get_entries(start_time)
+	return entries and entries[#entries]
+end
+
 function Client:get_entries(start_time)
-	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.headers)
+    local end_time = os.time() + 60
+	local response = rest_client.get(self.api_url.."/records?timerange="..start_time.."-"..end_time, self.headers)
+	return response and response["records"]
 end
 
 function Client:get_entry_description(entry)
@@ -104,19 +105,15 @@ local function get_entry_duration(entry)
 end
 
 function Client:get_total_seconds_from_completed_entries_today()
-	local today_start_time = os.time(os.date("!*t"))
-	return self:get_total_seconds_from_completed_entries_since()
+	local today_start_time = get_today_start_time()
+	return self:get_total_seconds_from_completed_entries_since(today_start_time)
 end
 
--- TODO adapt
 function Client:get_total_seconds_from_completed_entries_since(start_time)
 	local entries = self:get_entries(start_time)
 	local total_sec = 0
 	for _,v in pairs(entries) do
-		local duration = get_entry_duration(v)
-		if duration then
-			total_sec = total_sec + tools.get_duration_in_seconds(duration)
-		end
+		total_sec = total_sec + get_entry_duration(v)
 	end
 	
 	return total_sec
