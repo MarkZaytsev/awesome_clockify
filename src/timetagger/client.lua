@@ -105,7 +105,7 @@ end
 
 function Client:get_total_seconds_from_completed_entries_today()
 	local today_start_time = os.time(os.date("!*t"))
-	return get_total_seconds_from_completed_entries_since()
+	return self:get_total_seconds_from_completed_entries_since()
 end
 
 -- TODO adapt
@@ -124,10 +124,6 @@ end
 
 function Client:get_running_entry_time_seconds()
 	local entry = self:get_last_time_entry()
-	return self:get_active_time_seconds_from_entry(entry)
-end
-
-function Client:get_active_time_seconds_from_entry(entry)
 	if not entry then
 		return 0
 	end
@@ -136,7 +132,7 @@ function Client:get_active_time_seconds_from_entry(entry)
 		return os.time() - get_entry_start_time(entry)
 	end
 
-	return get_entry_duration(entry)
+	return 0
 end
 
 return Client

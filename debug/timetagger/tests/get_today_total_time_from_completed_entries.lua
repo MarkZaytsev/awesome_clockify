@@ -1,4 +1,4 @@
-local TestSetup = require("awesome_clockify.debug.clockify.test_setup")
+local TestSetup = require("awesome_clockify.debug.timetagger.test_setup")
 
 local setup = TestSetup:new()
 

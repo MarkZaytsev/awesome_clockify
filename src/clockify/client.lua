@@ -94,21 +94,22 @@ function Client:get_entry_description(entry)
 	return entry["description"]
 end
 
-local function get_entry_duration(entry)
-	return entry["timeInterval"]["duration"]
-end
-
-local function is_entry_completed(entry)
-	return not(get_entry_duration(entry) == nil)
-end
 
 local function get_entry_start_time(entry)
 	return entry["timeInterval"]["start"]
 end
 
+local function get_entry_duration(entry)
+	return entry["timeInterval"]["duration"]
+end
+
+local function is_entry_running(entry)
+	return get_entry_duration(entry) == nil
+end
+
 function Client:get_total_seconds_from_completed_entries_today()
 	local today_start_time = tools.get_clockify_time_today_utc()
-	return get_total_seconds_from_completed_entries_since(today_start_time)
+	return self:get_total_seconds_from_completed_entries_since(today_start_time)
 end
 
 function Client:get_total_seconds_from_completed_entries_since(start_time)
@@ -126,24 +127,16 @@ end
 
 function Client:get_running_entry_time_seconds()
 	local entry = self:get_last_time_entry()
-	return self:get_active_time_seconds_from_entry(entry)
-end
-
-function Client:get_active_time_seconds_from_entry(entry)
 	if not entry then
 		return 0
 	end
 
-	if is_entry_completed(entry) then
-		return 0
+	if is_entry_running(entry) then
+		local start_time = get_entry_start_time(entry)
+		return tools.parse_clockify_time_to_seconds(start_time)
 	end
 
-	local start_time = get_entry_start_time(entry)
-	if not start_time then
-		return 0
-	end
-
-	return tools.parse_clockify_time_to_seconds(start_time)
+	return 0
 end
 
 return Client
