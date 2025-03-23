@@ -45,11 +45,6 @@ function Client:get_user()
 	}
 end
 
-function Client:get_last_time_entry()
-	local response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.headers)
-	return response and response[1]
-end
-
 function Client:resume_timer()
 	local last_time_entry = self:get_last_time_entry()
 
@@ -84,6 +79,11 @@ function Client:toggle_timer()
 		response = resp,
 		is_running = is_running
 	}
+end
+
+function Client:get_last_time_entry()
+	local response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.headers)
+	return response and response[1]
 end
 
 function Client:get_entries(start_time)
