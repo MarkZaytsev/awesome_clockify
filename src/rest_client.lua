@@ -35,11 +35,11 @@ function client.request(method, url, headers, payload)
 
 	local json_response = nil
 	if status_code == 200 or status_code == 201 then
-		local decode_error = nil
-		json_response, decode_error = response.json()
+		local is_susccess = nil
+		is_susccess, json_response = pcall(function() return json.decode(text) end)
 		
-		if decode_error then
-			logger.log("Error decoding response: "..decode_error)
+		if not is_susccess then
+			logger.log("Error decoding response!")
 			notify("Response decode failed!", "status_code: "..status_code..". Response: ["..text.."]. Decode error: "..decode_error)
 		end
 	else
