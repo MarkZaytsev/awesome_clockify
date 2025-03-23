@@ -12,7 +12,8 @@ A plugin for AwesomeWM to display [Clockify](https://clockify.me) timer and to t
 4. [Controller](#controller)
 5. [Widget](#widget)
 6. [Debug](#debug)
-7. [TODO](#todo)
+7. [Dependencies](#dependencies)
+8. [TODO](#todo)
 
 <a name="installation"></a>
 ## Installation ##
@@ -115,6 +116,16 @@ lua awesome_clockify/debug/tests/get_user.lua
 You will get `id` (your user id) and `default_workspace_id`. Paste them to `debug/credentials.lua` as well.
 You can also use them in `rc.lua` as parameters for `ClockifyClient`. Otherwise client will call this API on initalization every time you reload awesomewm. Not a big deal really.
 You can execute other tests in the same way.
+
+<a name="dependencies"></a>
+## Dependencies ##
+```lua
+luarocks install luasocket
+luarocks install luasec
+luarocks install lua-cjson
+luarocks install md5
+```
+
 <a name="todo"></a>
 ## TODO ##
 - Optionally display entry text, project or tags

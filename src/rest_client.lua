@@ -1,51 +1,59 @@
-local https = require("ssl.https")
-local ltn12 = require("ltn12")
 local json = require("json")
-local tools = require("awesome_clockify.src.tools")
 local logger = require("awesome_clockify.src.logger")
+local requests = require("awesome_clockify.src.requests")
 local is_awesome_on, naughty = pcall(function() return require("naughty") end)
 
-local client = {}
+local client = {
+	api_key_header = "x-api-key"
+	-- api_key_header = "authtoken"
+}
+
+local function notify(title, text)
+	if not is_awesome_on then
+		return
+	end
+
+	naughty.notify({ 
+		preset = naughty.config.presets.critical,
+		title = title,
+		text = text
+	})
+end
 
 function client.request(method, url, api_key, payload)
 	local response = {}
 	local request = {
 		url = url,
-		method = method,
-		sink = ltn12.sink.table(response),
-		source = payload and ltn12.source.string(json.encode(payload)),
+		data = payload and json.encode(payload),
 		headers = {
 			["content-type"] = 'application/json',
-		    ["x-api-key"] = api_key
+		    [client.api_key_header] = api_key
 		}
 	}
 
-	tools.log_table("Requset:\n", request)
+	logger.log_table("Requset:\n", request)
 
-	-- TODO run this request async or it will freeze the ui in case of time-out
-	local _, code, body = https.request(request)
-	
-	logger.log("Response code: ", code)
+	-- TODO handle timeout. It causes awesome to stuck
+	local response = requests.request(method, request)
+	local status_code = response.status_code
+	local text = response.text
+	logger.log("Response status_code: ", status_code)
+	logger.log("Response text: ", text)
 
-	-- Response string is choped by characters amount for some reason
-	local str_json = ""
-	for _, v in pairs(response) do
-		str_json = str_json .. v
+	local json_response = nil
+	if status_code == 200 or status_code == 201 then
+		local decode_error = nil
+		json_response, decode_error = response.json()
+		
+		if decode_error then
+			logger.log("Error decoding response: "..decode_error)
+			notify("Response decode failed!", "status_code: "..status_code..". Response: ["..text.."]. Decode error: "..decode_error)
+		end
+	else
+		notify("Request failed!", "status_code: "..status_code..". Response: ["..text.."].")
 	end
 
-	logger.log("Response:\n", str_json)
-
-	local status, json_response = pcall(function() return json.decode(str_json) end)
-	
-	-- TODO I need to understand what kind of response we get when things fails.
-	-- It seems like request goes throught, then timeout happens in response
-	if not status and is_awesome_on then
-		naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Clockify response decode failed!",
-                     text = "Code: "..code..". Response: ["..str_json.."]."})
-	end
-
-	return json_response, code
+	return json_response, status_code
 end
 
 function client.get(url, api_key)
