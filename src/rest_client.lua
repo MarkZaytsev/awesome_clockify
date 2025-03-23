@@ -17,16 +17,11 @@ local function notify(title, text)
 	})
 end
 
-function client.request(method, url, api_key, payload)
-	assert(client.api_key_header, "No api_key_header provided to rest_client.")
-
+function client.request(method, url, headers, payload)
 	local request = {
 		url = url,
 		data = payload and json.encode(payload),
-		headers = {
-			["content-type"] = 'application/json',
-		    [client.api_key_header] = api_key
-		}
+		headers = headers
 	}
 
 	logger.log_table("Requset:\n", request)
@@ -54,16 +49,18 @@ function client.request(method, url, api_key, payload)
 	return json_response, status_code
 end
 
-function client.get(url, api_key)
-	return client.request("GET", url, api_key)
+function client.get(url, headers)
+	return client.request("GET", url, headers)
 end
 
-function client.post(url, api_key, payload)
-	return client.request("POST", url, api_key, payload)
+function client.post(url, headers, payload)
+	headers["content-type"] = 'application/json'
+	return client.request("POST", url, headers, payload)
 end
 
-function client.patch(url, api_key, payload)
-	return client.request("PATCH", url, api_key, payload)
+function client.patch(url, headers, payload)
+	headers["content-type"] = 'application/json'
+	return client.request("PATCH", url, headers, payload)
 end
 
 return client

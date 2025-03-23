@@ -13,7 +13,7 @@ function ClockifyClient:new(o)
 	self.__index = self
 
 	assert(o.api_key, "No api_key provided for ClockifyClient")
-	rest_client.api_key_header = "x-api-key"
+	self.headers = { ["x-api-key"] = o.api_key }
 	
 	if not o.workspace_id or not o.user_id then
 		if not o.workspace_id then
@@ -36,7 +36,7 @@ function ClockifyClient:new(o)
 end
 
 function ClockifyClient:get_user()
-	local response = rest_client.get(user_url, self.api_key)
+	local response = rest_client.get(user_url, self.headers)
 
 	return {
 	    id = response["id"],
@@ -46,7 +46,7 @@ function ClockifyClient:get_user()
 end
 
 function ClockifyClient:get_last_time_entry()
-	local response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.api_key)
+	local response = rest_client.get(self.workspace_user_url.."/time-entries?page-size=1", self.headers)
 	return response and response[1]
 end
 
@@ -60,7 +60,7 @@ function ClockifyClient:resume_timer()
         projectId = last_time_entry["projectId"]
     }
 
-	return rest_client.post(self.workspace_url.."/time-entries", self.api_key, payload)
+	return rest_client.post(self.workspace_url.."/time-entries", self.headers, payload)
 end
 
 function ClockifyClient:stop_timer()
@@ -68,7 +68,7 @@ function ClockifyClient:stop_timer()
         ["end"] = tools.get_clockify_time_now_utc()
     }
 
-	return rest_client.patch(self.workspace_user_url.."/time-entries", self.api_key, payload)
+	return rest_client.patch(self.workspace_user_url.."/time-entries", self.headers, payload)
 end
 
 function ClockifyClient:toggle_timer()
@@ -87,7 +87,7 @@ function ClockifyClient:toggle_timer()
 end
 
 function ClockifyClient:get_entries(start_time)
-	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.api_key)
+	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.headers)
 end
 
 function ClockifyClient:get_entry_description(entry)

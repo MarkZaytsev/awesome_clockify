@@ -10,7 +10,7 @@ function Client:new(o)
 
 	assert(o.api_key, "No authtoken provided for Client")
 	assert(o.api_url, "No api_url provided for Client")
-	rest_client.api_key_header = "authtoken"
+	self.headers = { authtoken = o.api_key }
 
 	return o
 end
@@ -20,7 +20,7 @@ function Client:get_last_time_entry()
 	local now = os.time()
     local t1 = now - 35 * 60
     local t2 = now + 60
-	return rest_client.get(self.api_url.."/records?timerange="..t1.."-"..t2, self.api_key)
+	return rest_client.get(self.api_url.."/records?timerange="..t1.."-"..t2, self.headers)
 end
 
 function Client:resume_timer()
@@ -43,7 +43,7 @@ function Client:resume_timer()
     --     "ds": selected_record["ds"],
     -- }
 
-	return rest_client.post(self.workspace_url.."/time-entries", self.api_key, payload)
+	return rest_client.post(self.workspace_url.."/time-entries", self.headers, payload)
 end
 
 function Client:stop_timer()
@@ -51,7 +51,7 @@ function Client:stop_timer()
         ["end"] = tools.get_clockify_time_now_utc()
     }
 
-	return rest_client.patch(self.workspace_user_url.."/time-entries", self.api_key, payload)
+	return rest_client.patch(self.workspace_user_url.."/time-entries", self.headers, payload)
 end
 
 function Client:toggle_timer()
@@ -70,7 +70,7 @@ function Client:toggle_timer()
 end
 
 function Client:get_entries(start_time)
-	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.api_key)
+	return rest_client.get(self.workspace_user_url.."/time-entries?start="..start_time, self.headers)
 end
 
 function Client:get_entry_description(entry)
