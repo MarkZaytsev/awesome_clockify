@@ -20,6 +20,10 @@ local function get_today_start_time()
 	return os.time(os.date("!*t"))
 end
 
+local function get_week_ago_start_time()
+	return get_today_start_time() - 7*24*60*60
+end
+
 local function get_now_time()
 	return os.time()
 end
@@ -46,11 +50,12 @@ end
 
 function Client:resume_timer()
 	local last_entry = self:get_last_time_entry()
+	local description = last_entry and self:get_entry_description(last_entry) or "no description"
 	local now_time = get_now_time()
 
 	local entry = {
 		key = tostring(uuid.new()),
-        ds = self:get_entry_description(last_entry),
+        ds = description,
         t1 = now_time,
         t2 = now_time,
         mt = now_time,
@@ -63,7 +68,7 @@ end
 
 function Client:stop_timer()
 	local last_entry = self:get_last_time_entry()
-	if not is_entry_running(last_entry) then
+	if not last_entry or not is_entry_running(last_entry) then
 		return nil
 	end
 
@@ -88,7 +93,7 @@ function Client:toggle_timer()
 end
 
 function Client:get_last_time_entry()
-	local today_start_time = get_today_start_time()
+	local today_start_time = get_week_ago_start_time()
 	local entries = self:get_entries(today_start_time)
 	return entries and entries[#entries]
 end
