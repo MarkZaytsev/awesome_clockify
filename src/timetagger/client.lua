@@ -17,7 +17,8 @@ function Client:new(o)
 end
 
 local function get_today_start_time()
-	return os.time(os.date("!*t"))
+	local today = os.date("!*t")	
+	return os.time({year=today.year, month=today.month, day=today.day, hour=0})
 end
 
 local function get_week_ago_start_time()
