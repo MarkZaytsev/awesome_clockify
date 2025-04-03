@@ -9,6 +9,10 @@ end
 local tab = "\t"
 local newline = "\n"
 function logger.as_string(obj, depth)
+	if not logger.is_active then
+		return
+	end
+
 	depth = depth or 1
 
 	if type(obj) == 'table' then
@@ -24,6 +28,10 @@ function logger.as_string(obj, depth)
 end
 
 function logger.log_table(text, obj)
+	if not logger.is_active then
+		return
+	end
+	
 	logger.log(text..logger.as_string(obj))
 end
 

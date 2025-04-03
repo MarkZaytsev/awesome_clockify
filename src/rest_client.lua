@@ -43,6 +43,8 @@ function client.request(method, url, headers, payload)
 			logger.log("Error decoding response!")
 			notify("Response decode failed!", "status_code: "..status_code..". Response: ["..text.."]. Decode error: "..decode_error)
 		end
+
+		logger.log_table("Response json: ", json_response)
 	else
 		notify("Request failed!", "status_code: "..status_code..". Response: ["..text.."].")
 	end
